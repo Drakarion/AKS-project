@@ -1,41 +1,56 @@
-variable "resource_group_location" {
+variable "subscription_id" {
+  description = "Azure Subscription ID (можно опустить, если используешь az login и активную подписку)"
   type        = string
-  default     = "westus3"
-  description = "Location of the resource group."
+  default     = "3515993e-5088-4a84-b085-3eda96ed42c6"
 }
 
-variable "resource_group_name_prefix" {
+variable "tenant_id" {
+  description = "Azure Tenant ID (можно опустить при az login)"
   type        = string
-  default     = "rg-aks"
+  default     = "956149e1-42b4-4eaf-a34a-e49fc1a20155"
+}
+
+variable "location" {
+  description = "Azure region"
+  type        = string
+  default     = "westus"
+}
+
+variable "resource_group_name" {
+  description = "Имя Resource Group"
+  type        = string
+  default     = "aks-resources"
+}
+
+variable "cluster_name" {
+  description = "Имя AKS кластера"
+  type        = string
+  default     = "my-aks-cluster"
+}
+
+variable "dns_prefix" {
+  description = "DNS префикс для AKS"
+  type        = string
+  default     = "aksdemo"
+}
+
+variable "kubernetes_version" {
+  description = "Версия Kubernetes (укажи поддерживаемую минорную, например 1.30)"
+  type        = string
+  default     = "1.30"
 }
 
 variable "node_count" {
+  description = "Количество узлов по умолчанию"
   type        = number
-  description = "The initial quantity of nodes for the node pool."
-  default     = 1
+  default     = 2
 }
 
-variable "username" {
+variable "node_size" {
+  description = "Тип VM для узлов"
   type        = string
-  default     = "azureuser"
+  default     = "Standard_D2s_v3"
 }
 
-variable "node_min_count" {
-    type = number
-    default = 1
-}
-
-variable "node_max_count" {
-    type = number
-    default = 3
-}
-
-variable "availability_zones" {
-    type = list(string)
-    default = ["1", "2", "3"]
-}
-
-variable "tags" {
-  type        = map(string)
-  default     = { project = "nodejs-3tier", env = "dev" }
-}
+variable "vnet_cidr"   { default = "10.0.0.0/16" }
+variable "subnet_cidr" { default = "10.0.1.0/24" }
